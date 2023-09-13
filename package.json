@@ -1,0 +1,14 @@
+{
+  "name": "dapp-sandbox",
+  "version": "0.0.1",
+  "description": "My DApp Sandbox",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/contract",
+    "packages/client"
+  ],
+  "scripts": {
+    "contract": "yarn workspace contract"
+  }
+}
