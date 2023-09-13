@@ -9,6 +9,7 @@
     "packages/client"
   ],
   "scripts": {
-    "contract": "yarn workspace contract"
+    "contract": "yarn workspace contract",
+    "client": "yarn workspace client"
   }
 }
