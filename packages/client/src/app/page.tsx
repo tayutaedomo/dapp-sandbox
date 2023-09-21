@@ -1,8 +1,11 @@
+import React from "react";
+import type { NextPage } from "next";
+
 import Link from "next/link";
 
 import styles from './page.module.css'
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <main className={styles.main}>
       <ul>
@@ -16,3 +19,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;

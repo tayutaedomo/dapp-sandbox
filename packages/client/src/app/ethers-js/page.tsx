@@ -1,11 +1,13 @@
-'use client';
-
+import React from "react";
+import type { NextPage } from "next";
 import ConnectWalletButton from "@/components/ConnectWalletButton";
 
-export default function EthersJs() {
-	return (
-		<main>
-			<ConnectWalletButton />
-		</main>
-	);
-}
+const EthersJs: NextPage = () => {
+  return (
+    <main>
+      <ConnectWalletButton />
+    </main>
+  );
+};
+
+export default EthersJs;
