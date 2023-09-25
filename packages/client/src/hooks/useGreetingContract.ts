@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useCallback, useState } from "react";
 
 import { ethers } from "ethers";
@@ -15,15 +17,15 @@ interface ReturnUseGreetingContract {
   isHelloProcessing: boolean;
 }
 
-export const GreetingAddress = process.env.greetingAddress || "";
+export const GreetingAddress = process.env.NEXT_PUBLIC_GREETING_ADDRESS || "";
 
-export const useContract = ({ currentAccount }: PropsUseGreetingContract): ReturnUseGreetingContract => {
+export const useGreetingContract = ({ currentAccount }: PropsUseGreetingContract): ReturnUseGreetingContract => {
   const [greeting, setGreeting] = useState<GreetingType>();
   const [isHelloProcessing, setIsHelloProcessing] = useState(false);
   const ethereum = getEthereum();
 
   const getContract = useCallback(
-    (contractAddress: string, abi: ethers.ContractInterface, storeContract: (_: ethers.Contract) => void) => {
+    async (contractAddress: string, abi: ethers.ContractInterface, storeContract: (_: ethers.Contract) => void) => {
       if (!ethereum) {
         console.log("Ethereum object doesn't exist!");
         return;
@@ -33,8 +35,8 @@ export const useContract = ({ currentAccount }: PropsUseGreetingContract): Retur
         return;
       }
       try {
-        const provider = new ethers.providers.Web3Provider(ethereum as unknown as ethers.providers.ExternalProvider);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(ethereum);
+        const signer = await provider.getSigner();
         const Contract = new ethers.Contract(contractAddress, abi, signer);
         storeContract(Contract);
       } catch (error) {
@@ -45,8 +47,8 @@ export const useContract = ({ currentAccount }: PropsUseGreetingContract): Retur
   );
 
   useEffect(() => {
-    getContract(GreetingAddress, GreetingAbi.abi, (Contract: ethers.Contract) => {
-      setGreeting(Contract as GreetingType);
+    getContract(GreetingAddress, GreetingAbi.abi, (contract: ethers.Contract) => {
+      setGreeting(contract as GreetingType);
     });
   }, [ethereum, currentAccount, getContract]);
 
@@ -68,16 +70,16 @@ export const useContract = ({ currentAccount }: PropsUseGreetingContract): Retur
 
   // Set event listeners
   useEffect(() => {
-    if (!greeting) return;
-    const onGreetingMessage = (from: string, message: string) => {
-      console.log(`GreetingMessage event received from ${from}: ${message}`);
-    };
+    // if (!greeting) return;
+    // const onGreetingMessage = (from: string, message: string) => {
+    //   console.log(`GreetingMessage event received from ${from}: ${message}`);
+    // };
 
-    const greetingEvent = greeting.getEvent("GreetingMessage");
-    greeting.on(greetingEvent, onGreetingMessage);
+    // const greetingEvent = greeting.getEvent("GreetingMessage");
+    // greeting.on(greetingEvent, onGreetingMessage);
 
     return () => {
-      if (greeting) greeting.off(greetingEvent, onGreetingMessage);
+      // if (greeting) greeting.off(greetingEvent, onGreetingMessage);
     };
   }, [greeting]);
 
