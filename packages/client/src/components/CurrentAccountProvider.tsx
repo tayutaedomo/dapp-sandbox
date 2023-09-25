@@ -1,5 +1,6 @@
 'use client';
 
+import React from "react";
 import { createContext, ReactNode } from 'react';
 
 import { useWallet } from '../hooks/useWallet';

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext } from "react";
 import type { NextPage } from "next";
 import CurrentAccountContext from "./CurrentAccountProvider";
