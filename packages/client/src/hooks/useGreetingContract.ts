@@ -12,7 +12,7 @@ interface PropsUseGreetingContract {
 }
 
 interface ReturnUseGreetingContract {
-  // greeting: GreetingType | undefined;
+  greeting: GreetingType | undefined;
   hello: () => Promise<void>;
   isHelloProcessing: boolean;
 }
@@ -35,7 +35,7 @@ export const useGreetingContract = ({ currentAccount }: PropsUseGreetingContract
         return;
       }
       try {
-        const provider = new ethers.BrowserProvider(ethereum);
+        const provider = new ethers.providers.Web3Provider(ethereum as unknown as ethers.providers.ExternalProvider);
         const signer = await provider.getSigner();
         const Contract = new ethers.Contract(contractAddress, abi, signer);
         storeContract(Contract);
@@ -68,23 +68,8 @@ export const useGreetingContract = ({ currentAccount }: PropsUseGreetingContract
     }
   }, [greeting, currentAccount]);
 
-  // Set event listeners
-  useEffect(() => {
-    // if (!greeting) return;
-    // const onGreetingMessage = (from: string, message: string) => {
-    //   console.log(`GreetingMessage event received from ${from}: ${message}`);
-    // };
-
-    // const greetingEvent = greeting.getEvent("GreetingMessage");
-    // greeting.on(greetingEvent, onGreetingMessage);
-
-    return () => {
-      // if (greeting) greeting.off(greetingEvent, onGreetingMessage);
-    };
-  }, [greeting]);
-
   return {
-    // greeting,
+    greeting,
     hello,
     isHelloProcessing,
   };
