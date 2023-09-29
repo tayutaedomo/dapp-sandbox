@@ -1,5 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomiclabs/hardhat-etherscan";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.19",
@@ -12,6 +13,9 @@ const config: HardhatUserConfig = {
       url: process.env.MUMBAI_URL,
       accounts: [process.env.MUMBAI_PRIVATE_KEY || ""],
     },
+  },
+  etherscan: {
+    apiKey: process.env.POLYGONSCAN_API_KEY,
   },
 };
 

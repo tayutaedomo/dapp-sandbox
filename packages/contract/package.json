@@ -9,7 +9,8 @@
     "test": "npx hardhat test",
     "deploy:local": "npx hardhat run --network localhost scripts/deployGreeting.ts",
     "deploy:sepolia": "npx hardhat run --network sepolia scripts/deployGreeting.ts",
-    "deploy:mumbai": "npx hardhat run --network mumbai scripts/deployGreeting.ts"
+    "deploy:mumbai": "npx hardhat run --network mumbai scripts/deployGreeting.ts",
+    "verify:mumbai": "npx hardhat verify --network mumbai"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
