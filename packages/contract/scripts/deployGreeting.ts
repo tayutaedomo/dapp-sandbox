@@ -6,7 +6,7 @@ async function main() {
   const myName = "John";
   const greeting = await Greeting.deploy(myName);
 
-  console.log("greeting address:", await greeting.getAddress());
+  console.log("greeting address:", await greeting.address);
   console.log("deployer address:", deployer.address);
 }
 
