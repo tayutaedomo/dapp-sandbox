@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import type { NextPage } from "next";
 import { useGreetingContract } from "@/hooks/useGreetingContract";
 import { useWallet } from "@/hooks/useWallet";
+import { Badge, Box, Button, Text } from "@chakra-ui/react";
 
 const Hello: NextPage = () => {
   const { currentAccount } = useWallet();
@@ -28,7 +29,17 @@ const Hello: NextPage = () => {
     };
   }, [greeting]);
 
-  return <div>{!isHelloProcessing ? <button onClick={onClickHandler}>Hello</button> : <div>Loading...</div>}</div>;
+  return (
+    <Box>
+      {!isHelloProcessing ? (
+        <Button onClick={onClickHandler}>Hello</Button>
+      ) : (
+        <Badge px={5} py={2} bg={"gray.700"} shadow="md" rounded="full">
+          Loading...
+        </Badge>
+      )}
+    </Box>
+  );
 };
 
 export default Hello;
