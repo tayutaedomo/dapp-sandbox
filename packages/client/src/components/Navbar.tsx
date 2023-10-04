@@ -15,6 +15,7 @@ import {
   Text,
   HStack,
   IconButton,
+  Link,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
@@ -22,12 +23,21 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 interface Props {
   children: React.ReactNode;
+  path: string;
 }
 
-const Links = ["ethers.js", "thirdweb-dev"];
+type LinkData = {
+  title: string;
+  path: string;
+};
+
+const Links: LinkData[] = [
+  { title: "ethers.js", path: "/ethers-js" },
+  { title: "thirdweb-dev", path: "/thirdweb-dev" },
+];
 
 const NavLink = (props: Props) => {
-  const { children } = props;
+  const { children, path } = props;
 
   return (
     <Box
@@ -39,7 +49,7 @@ const NavLink = (props: Props) => {
         textDecoration: "none",
         bg: useColorModeValue("gray.200", "gray.700"),
       }}
-      href={"#"}
+      href={path}
     >
       {children}
     </Box>
@@ -63,11 +73,15 @@ export default function Navbar() {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
-              <Text>dApp Sandbox</Text>
+              <Link href="/">
+                <Text>dApp Sandbox</Text>
+              </Link>
             </Box>
             <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.path} path={link.path}>
+                  {link.title}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -86,7 +100,9 @@ export default function Navbar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.path} path={link.path}>
+                  {link.title}
+                </NavLink>
               ))}
             </Stack>
           </Box>
